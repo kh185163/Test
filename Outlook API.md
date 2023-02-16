@@ -1,0 +1,1 @@
+The code sets up the authentication parameters, sends a request to obtain an access token using client credentials flow, extracts the access token from the response JSON, sets the authorization header with the access token, and sends a GET request to retrieve information about the authenticated user's profile. Finally, it prints the JSON response returned by the API.
