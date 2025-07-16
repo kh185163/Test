@@ -1,0 +1,66 @@
+
+1. Open PowerShell as admin, then type: WSL --install
+2. WSL --install --online
+3. Copy the name of the distro from the list e.g.: Ubuntu-24.04
+4. Install the WSL Linux distro with: WSL --install -d Ubuntu-24.04
+
+-------------------------------------------------------------------
+The HCS_E_SERVICE_NOT_AVAILABLE error in Windows Subsystem for Linux (WSL) typically occurs when required virtualization features or services are not enabled or configured correctly. This issue prevents WSL2 from running Linux distributions.
+
+Example
+
+Error code: Wsl/Service/CreateInstance/CreateVm/HCS_E_SERVICE_NOT_AVAILABLE
+
+Steps to Resolve
+
+1. Enable Required Windows Features
+
+Ensure that Virtual Machine Platform and Windows Subsystem for Linux are enabled.
+
+Command:
+
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All
+Restart your system after enabling these features.
+
+2. Verify Virtualization in BIOS/UEFI
+
+Check if CPU virtualization (Intel VT-x or AMD-V) is enabled in your BIOS/UEFI settings. You can confirm this in Task Manager under the Performance tab, where "Virtualization" should show as Enabled.
+
+3. Update WSL and Kernel
+
+Ensure you have the latest version of WSL and its kernel.
+
+Command:
+
+wsl --update
+
+4. Check Hyper-V Host Compute Service
+
+Ensure the Hyper-V Host Compute Service is running.
+
+Command:
+
+net start vmcompute
+If the service is missing, re-enable Hyper-V components:
+
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -All
+
+5. Reinstall WSL and Distro
+
+If the issue persists, reinstall WSL and your Linux distribution.
+
+Commands:
+
+wsl --unregister <DistroName>
+wsl --install -d <DistroName>
+
+6. Reset WSL Configuration
+
+Reset WSL to clear any misconfigurations:
+
+dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+Restart your system after resetting.
+
+By following these steps, you should be able to resolve the HCS_E_SERVICE_NOT_AVAILABLE error and get WSL2 running smoothly
