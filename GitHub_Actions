@@ -1,0 +1,50 @@
+1. Create a Workflow File
+In your repository, create a folder called .github/workflows (if it doesn’t exist).
+Inside that folder, create a file named ci.yml.
+
+2. Add a Simple Workflow
+Here’s an example workflow that runs on every push and pull request, and simply prints “Hello, world!”:
+
+
+        name: Simple CI
+
+        on:
+        push:
+        pull_request:
+
+        jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+            - name: Checkout code
+                uses: actions/checkout@v4
+
+            - name: Say Hello
+                run: echo "Hello, world!"
+
+3. Commit and Push
+Commit and push this file to your repository.
+Go to the Actions tab on GitHub to see your workflow run.
+What happens?
+Every time you push code or open a pull request, GitHub Actions will run this workflow, check out your code, and print “Hello, world!” in the logs.
+
+You can expand this by adding steps to install dependencies, run tests, or deploy your app! 
+
+
+
+What is a Workflow? 
+
+A workflow in GitHub Actions is an automated process defined in a YAML file (like your ci.yml) that runs one or more jobs in response to events (such as code pushes or pull requests) in your repository.
+
+What does it do?
+
+It automates tasks such as building, testing, or deploying your code.
+Each workflow can have multiple jobs, and each job can have multiple steps (commands or actions).
+What is it used for?
+
+Continuous Integration (CI): Automatically build and test your code when you push changes.
+Continuous Deployment (CD): Deploy your application after successful tests.
+Automation: Run scripts, check code formatting, send notifications, etc.
+
+Summary:
+A workflow helps automate and streamline your development process by running predefined tasks whenever certain events occur in your GitHub repository.
